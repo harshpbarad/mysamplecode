@@ -1,12 +1,12 @@
 import { Router } from "express";
-import { loginAdmin, loginUser, registerAdmin, registerUser, verifyAdmin, verifyUser } from "../../controllers/auth";
+import { loginUser, registerUser, verifyUser } from "../../controllers/auth";
 const authRouter = Router();
 
 authRouter.post("/register-user", registerUser);
-authRouter.post("/register-admin", registerAdmin);
-authRouter.put("/verify-user", verifyUser);
-authRouter.put("/verify-admin", verifyAdmin);
+authRouter.post("/register-admin", registerUser);
+authRouter.get("/verify-user", verifyUser);
+authRouter.get("/verify-admin", verifyUser);
 authRouter.post("/login-user", loginUser);
-authRouter.post("/login-admin", loginAdmin);
+authRouter.post("/login-admin", loginUser);
 
 export default authRouter;

@@ -1,5 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import sequelizeConnection from "../connection";
+import { compareSync } from "../../util/encrypt";
 
 class User extends Model {
   public id!: number;
@@ -15,6 +16,7 @@ class User extends Model {
 
   static validPassword: (password: string, hash: string) => boolean;
 }
+
 
 User.init(
   {
@@ -54,12 +56,8 @@ User.init(
   }
 );
 
-User.validPassword = (password: string, userPassword: string) => {
-  if (password === userPassword) {
-    return true
-  } else {
-    return false
-  }
+User.validPassword = (password: string, hash: string) => {
+  return compareSync(password, hash);
 };
 
 export default User;

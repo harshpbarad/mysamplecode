@@ -13,9 +13,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.findOneUser = exports.validateAdmin = exports.validatePassword = exports.userExists = exports.createUser = void 0;
+const encrypt_1 = require("../util/encrypt");
 const User_1 = __importDefault(require("../model/models/User"));
 const sequelize_1 = require("sequelize");
 const createUser = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    payload.password = (0, encrypt_1.encryptSync)(payload.password);
     const user = yield User_1.default.create(payload);
     return user;
 });

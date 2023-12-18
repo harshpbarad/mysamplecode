@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = require("sequelize");
 const connection_1 = __importDefault(require("../connection"));
+const encrypt_1 = require("../../util/encrypt");
 class User extends sequelize_1.Model {
 }
 User.init({
@@ -41,13 +42,8 @@ User.init({
     createdAt: "created_at",
     updatedAt: "last_updated",
 });
-User.validPassword = (password, userPassword) => {
-    if (password === userPassword) {
-        return true;
-    }
-    else {
-        return false;
-    }
+User.validPassword = (password, hash) => {
+    return (0, encrypt_1.compareSync)(password, hash);
 };
 exports.default = User;
 //# sourceMappingURL=User.js.map

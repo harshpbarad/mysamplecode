@@ -1,7 +1,9 @@
+import { encryptSync } from "../util/encrypt";
 import User from "../model/models/User";
 import { Op } from "sequelize";
 
 export const createUser = async (payload: any) => {
+  payload.password = encryptSync(payload.password);
   const user = await User.create(payload);
   return user;
 };
